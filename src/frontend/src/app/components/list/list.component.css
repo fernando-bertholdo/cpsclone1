@@ -1,0 +1,22 @@
+.list {
+    background: white;
+    max-height: 60vh;
+}
+
+@media (max-height: 740px) {
+    .list {
+        max-height: 58vh;
+    }
+}
+
+@media (max-height: 710px) {
+    .list {
+        max-height: 56vh;
+    }
+}
+
+@media (max-height: 670px) {
+    .list {
+        max-height: 54vh;
+    }
+}

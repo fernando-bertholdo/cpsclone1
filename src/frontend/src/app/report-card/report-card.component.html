@@ -1,0 +1,96 @@
+<div class="grid-container font-sans" aria-label="Seção de Informações do Aluno">
+  <div
+
+    class="container-report col-span-7 col-start-1 px-5 pb-5 w-full rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col" aria-label="Ficha do Aluno"
+
+  >
+    <h2 class="font-semibold text-center m-2 md:text-2xl">Ficha do Aluno</h2>
+    <div class="overflow-auto w-full">
+      <p class="my-1">Nome: {{ student?.name }}</p>
+      <p class="my-1">Unidade: FATEC ZO/SP</p>
+      <p class="my-1">Matricula: {{ student?.academic_id }}</p>
+      <p class="my-1">Email: {{ student?.email }}</p>
+      <p class="my-1">Telefone: {{ student?.contact_phone }}</p>
+      <p class="my-1">Data de nascimento: {{ student?.date_of_birth }}</p>
+
+      <p>
+        <mat-checkbox [formControl]="needAssist" aria-label="Necessidade de Assistência">Tem Necessidade?</mat-checkbox>
+      </p>
+      <mat-form-field class="w-1/2" aria-label="Campo de Necessidade">
+        <mat-label>Necessidade</mat-label>
+        <mat-select [disabled]="!needAssist.value">
+          <mat-option>Nenhuma</mat-option>
+          @for (need of needs; track need) {
+          <mat-option [value]="need">{{ need }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <p>
+        <mat-checkbox [formControl]="needEquipament" aria-label="Necessidade de Equipamento"
+          >Precisa de Equipamento?</mat-checkbox
+        >
+      </p>
+      <mat-form-field class="w-1/2" aria-label="Campo de Equipamento">
+        <mat-label>Equipamento</mat-label>
+        <mat-select [disabled]="!needEquipament.value">
+          <mat-option>Nenhuma</mat-option>
+          @for (equipament of equipaments; track equipament) {
+          <mat-option [value]="equipament">{{ equipament }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="flex-grow"></div>
+    <button
+      (click)="generatePDF()"
+      class="w-full border mt-2 border-[#bb2200] text-[#bb2200] mb-4 py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white flex items-center justify-center gap-2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"
+        />
+      </svg>
+      Gerar PDF
+    </button>
+
+    <div class="felx flex">
+      <button
+        [routerLink]="['/manage']"
+        class="w-full border mr-1 md:text-base border-[#bb2200] text-[#bb2200] py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white"
+        aria-label="Botão para Ver Atendimentos"
+      >
+        Ver Atendimentos
+      </button>
+      <button
+        [routerLink]="['/schedule', student?.id]"
+        class="w-full border ml-1 md:text-base border-[#bb2200] text-[#bb2200] py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white"
+        aria-label="Botão para Criar Atendimentos"
+      >
+        Criar Atendimentos
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="container-report col-span-5 col-start-8 px-5 pb-5 w-full rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col" aria-label="Histórico do Aluno">
+    <h2 class="font-semibold text-center m-2 md:text-2xl" >Histórico</h2>
+    <div class="flex-grow"></div>
+    <button
+      class="w-full border md:text-base border-[#bb2200] text-[#bb2200] py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white"
+      aria-label="Botão para Expandir Histórico"
+    >
+      Expandir
+    </button>
+  </div>
+</div>

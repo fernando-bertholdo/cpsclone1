@@ -1,0 +1,23 @@
+header {
+  display: flex;
+  width: 100%;
+  padding-inline: 16px;
+  padding-block: 8px;
+  background-color: white;
+  color: #333;
+  align-items: center;
+  height: 134px;
+  border-bottom: #BB2200 16px solid;
+  
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mat-toolbar {
+    background-color: white;
+    color: white;
+  }
+}

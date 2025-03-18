@@ -1,0 +1,88 @@
+<div class="grid-container font-sans">
+  <!-- Agenda do Aluno -->
+  <div
+    class="col-span-7 col-start-1 px-5 pb-5 w-full h-[75vh] rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col"
+    aria-label="Agenda do Aluno"
+  >
+
+    <button class="absolute mt-3" [routerLink]="['/student', student?.id]" aria-label="Voltar para a página anterior">
+      <img class="h-6 w-6" src="./assets/images/left-arrow.svg" />
+    </button>
+
+    <!-- Título -->
+    <h2 class="font-semibold text-center m-2 md:text-2xl">Agenda do Aluno</h2>
+    <p class="my-1">Nome: {{ student?.name }}</p>
+    <p class="my-1">Matricula: {{ student?.academic_id }}</p>
+    <p class="my-1">Email: {{ student?.email }}</p>
+    <p class="my-1">Telefone: {{ student?.contact_phone }}</p>
+    <p class="my-1">Data de nascimento: {{ student?.date_of_birth }}</p>
+    <div class="flex-grow"></div>
+
+    <!-- Dias de Atendimento -->
+    <h2 class="font-semibold text-center m-2 md:text-base">Dias de Atendimento</h2>
+    <mat-button-toggle-group
+      name="Dia da Semana"
+      aria-label="Selecione os dias da semana disponíveis para atendimento"
+      multiple
+      [hideMultipleSelectionIndicator]="true"
+      class="justify-between"
+    >
+      <!-- Botões dos dias da semana -->
+      <mat-button-toggle class="w-full" value="sunday">Domingo</mat-button-toggle>
+      <mat-button-toggle class="w-full" value="monday">Segunda-feira</mat-button-toggle>
+      <mat-button-toggle class="w-full" value="tuesday">Terça-feira</mat-button-toggle>
+      <mat-button-toggle class="w-full" value="wednesday">Quarta-feira</mat-button-toggle>
+      <mat-button-toggle class="w-full" value="thursday">Quinta-feira</mat-button-toggle>
+      <mat-button-toggle class="w-full" value="friday">Sexta-feira</mat-button-toggle>
+      <mat-button-toggle class="w-full" value="saturday">Sábado</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- Tempo de início e fim -->
+    <mat-form-field class="mt-4">
+      <mat-label>Tempo de Início</mat-label>
+      <input matInput [matTimepicker]="startPicker">
+      <mat-timepicker-toggle matIconSuffix [for]="startPicker"></mat-timepicker-toggle>
+      <mat-timepicker #startPicker></mat-timepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tempo Final</mat-label>
+      <input matInput [matTimepicker]="endPicker">
+      <mat-timepicker-toggle matIconSuffix [for]="endPicker"></mat-timepicker-toggle>
+      <mat-timepicker #endPicker></mat-timepicker>
+    </mat-form-field>
+  </div>
+
+  <!-- Profissionais -->
+  <div
+    class="col-span-5 col-start-8 px-5 pb-5 w-full h-[75vh] rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col"
+  >
+    <!-- Título -->
+    <h2 class="font-semibold text-center m-2 md:text-2xl">Profissionais</h2>
+
+    <!-- Seleção de especialidade -->
+    <mat-form-field>
+      <mat-label>Especialidade</mat-label>
+      <mat-select aria-label="Selecione uma especialidade">
+        <!-- Opção padrão -->
+        <mat-option>Nenhuma</mat-option>
+        <!-- Iteração usando *ngFor -->
+        <mat-option *ngFor="let need of needs; trackBy: trackNeed" [value]="need">
+          {{ need }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Componente de profissionais -->
+    <app-professional-complete></app-professional-complete>
+
+    <!-- Botão Confirmar -->
+    <div class="flex-grow"></div>
+    <button
+      routerLink="/manage"
+      class="w-full border md:text-base border-[#bb2200] text-[#bb2200] py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white"
+      aria-label="Confirmar seleção de profissionais e especialidades"
+    >
+      Confirmar
+    </button>
+  </div>
+</div>

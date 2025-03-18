@@ -1,0 +1,31 @@
+<form
+  class="items-center justify-center gap-4"
+  #form="ngForm"
+  (ngSubmit)="onSubmit()"
+  aria-label="Formulário de envio"
+>
+  <mat-form-field
+    class="w-full"
+    appearance="outline"
+    subscriptSizing="dynamic"
+    aria-label="Campo de seleção"
+  >
+    <input
+      required
+      type="text"
+      name="value"
+      matInput
+      [(ngModel)]="value"
+      [matAutocomplete]="auto"
+      appSelectorValidator
+      (ngModelChange)="selectedStudentId($event)"
+      aria-label="Digite para selecionar um aluno"
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" aria-label="Opções de alunos">
+      @for (option of filteredOptions(); track option.id) {
+      <mat-option [value]="option" [attr.aria-label]="'Opção: ' + option.name">{{ option.name }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+  <button [disabled]="form.invalid" type="submit" class="btn" aria-label="Enviar formulário">Enviar</button>
+</form>

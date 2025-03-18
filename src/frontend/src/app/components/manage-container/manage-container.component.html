@@ -1,0 +1,10 @@
+
+<div class="custom-box" aria-label="Caixa de conteúdo">
+  <h2 class="title font-semibold text-left ml-5 mt-12 md:text-2xl sm:text-lg text-base leading-tight font-sans" id="boxTitle">
+    {{ title() }}
+  </h2>
+  <p class="subtitle font-medium text-left ml-5 md:text-base sm:text-sm text-xs leading-tight font-sans break-words">
+    {{ subTitle() }}
+  </p>
+  <img class="svg-icon" [src]="svgPath()" alt="Icon" aria-labelledby="boxTitle" role="img" />
+</div>

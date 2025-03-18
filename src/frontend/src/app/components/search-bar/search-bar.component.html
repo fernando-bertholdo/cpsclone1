@@ -1,0 +1,29 @@
+<div
+  class="search-bar-container"
+  cdkOverlayOrigin
+  #overlayPosition="cdkOverlayOrigin"
+  [ngClass]="{ 'opened mat-elevation-z2': overlayOpen() }"
+  [attr.aria-label]="'Barra de pesquisa'"
+>
+  <button mat-icon-button [attr.aria-label]="'Ícone de pesquisa'">
+    <mat-icon class="search-icon">search</mat-icon>
+  </button>
+  <input
+    #searchInput
+    [value]="searchTerm()"
+    placeholder="Procurar"
+    [attr.aria-label]="'Digite para procurar'"
+    (click)="overlayOpen.set(true)"
+    (keydown.ENTER)="search(searchInput.value)"
+  />
+</div>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="overlayPosition"
+  [cdkConnectedOverlayOpen]="overlayOpen()"
+  (overlayOutsideClick)="overlayOpen.set(false)"
+  [attr.aria-label]="'Opções de pesquisa'"
+>
+  <app-search-overlay />
+</ng-template>

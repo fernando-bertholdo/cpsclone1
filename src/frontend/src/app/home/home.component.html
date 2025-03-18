@@ -1,0 +1,54 @@
+<div class="grid-container font-sans">
+  <!-- Container de Gerenciamento de Informações -->
+  <app-manage-container
+    [title]="titleManager()"
+    [subTitle]="subTitleManager()"
+    [svgPath]="svgPathManage()"
+    class="button-container cursor-pointer"
+    routerLink="/manage"
+    aria-label="Gerenciar informações"
+  ></app-manage-container>
+
+  <!-- Container de Análises e Dados Estatísticos -->
+  <app-manage-container
+    [title]="titleAnalitics()"
+    [subTitle]="subTitleAnalitics()"
+    [svgPath]="svgPathAnalitics()"
+    class="button-container cursor-pointer"
+    routerLink="/analitics"
+    aria-label="Visualizar análises e dados estatísticos"
+  ></app-manage-container>
+
+  <!-- Lista de Alunos -->
+  <div class="table-container font-sans">
+    <div class="flex flex-col h-full">
+      <h1 class="font-semibold text-center m-2 md:text-2xl font-sans" aria-label="Lista de Alunos">
+        Lista de Alunos
+      </h1>
+      <app-list aria-label="Tabela de alunos"></app-list>
+      <button
+        routerLink="/students"
+        class="w-full mt-auto border md:text-base border-[#bb2200] text-[#bb2200] py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white font-sans"
+        aria-label="Expandir lista de alunos"
+      >
+        Expandir
+      </button>
+    </div>
+  </div>
+
+  <!-- Lista de Profissionais -->
+  <div class="table-container2 font-sans">
+    <div class="flex flex-col h-full">
+      <h1 class="font-semibold text-center md:text-2xl font-sans" aria-label="Lista de Profissionais">
+        Lista de Profissionais
+      </h1>
+      <app-list aria-label="Tabela de profissionais"></app-list>
+      <button
+        class="w-full mt-auto border md:text-base border-[#bb2200] text-[#bb2200] py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white font-sans"
+        aria-label="Expandir lista de profissionais"
+      >
+        Expandir
+      </button>      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="list overflow-auto mt-auto bg-white" aria-label="Tabela de alunos">
+  <table mat-table [dataSource]="dataSource" class="list w-full mt-auto bg-white" aria-label="Lista de alunos" role="grid">
+    
+    <!-- Cabeçalho -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let student" id="student-{{ student.id }}" [attr.aria-label]="'Nome do aluno ' + student.name"> {{ student.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="academic_id">
+      <th mat-header-cell *matHeaderCellDef> Matrícula </th>
+      <td mat-cell *matCellDef="let student" id="student-{{ student.id }}" [attr.aria-label]="'Matrícula do aluno ' + student.academic_id"> {{ student.academic_id }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'academic_id']" class="" role="row"></tr>
+    <tr mat-row *matRowDef="let student; columns: ['name', 'academic_id'];" [routerLink]="['/student', student.id]" class="justify-between hover:bg-gray-200 cursor-pointer" role="row" [attr.aria-label]="'Ir para o perfil do aluno ' + student.name">
+    </tr>
+  </table>
+</div>

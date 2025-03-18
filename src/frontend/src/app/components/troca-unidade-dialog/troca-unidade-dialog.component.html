@@ -1,0 +1,28 @@
+<div class="bg-white h-full flex flex-col" [attr.aria-label]="'Diálogo para trocar unidade'">
+  <h2 class="h2 font-sans mt-4 font-semibold text-center md:text-2xl" id="dialogTitle">
+    Trocar Unidade
+  </h2>
+  <mat-dialog-content class="font-sans flex-grow">
+    <p class="font-sans">Selecione a unidade:</p>
+    <mat-form-field class="font-sans w-full" appearance="fill" [attr.aria-label]="'Campo de seleção de unidade'">
+      <mat-label class="font-sans">Unidade</mat-label>
+      <mat-select class="font-sans" aria-labelledby="dialogTitle" [attr.aria-label]="'Selecione uma unidade'">
+        <mat-option class="font-sans" value="unidade1" [attr.aria-label]="'Opção: Unidade 1'">Unidade 1</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions class="w-full flex justify-between">
+    <div class="w-full flex justify-between">
+      <button
+        mat-dialog-close
+        class="font-sans font-medium hover:text-[#BB2200]"
+        [attr.aria-label]="'Cancelar a troca de unidade'"
+      >
+        Cancelar
+      </button>
+      <button mat-dialog-close class="font-medium hover:text-[#BB2200]" [attr.aria-label]="'Confirmar a troca de unidade'">
+        Confirmar
+      </button>
+    </div>
+  </mat-dialog-actions>
+</div>

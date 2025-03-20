@@ -40,15 +40,22 @@ export const routes: Routes = [
   },
   {
     path: 'manage',
-    loadComponent: () => {
-      return import('./manage/manage.component').then((m) => m.ManageComponent);
-    },
+    redirectTo: 'professionals',
+    pathMatch: 'full'
   },
   {
     path: 'analitics',
     loadComponent: () => {
       return import('./analitics/analitics.component').then(
         (m) => m.AnaliticsComponent
+      );
+    },
+  },
+  {
+    path: 'professionals',
+    loadComponent: () => {
+      return import('./professionals/professionals.component').then(
+        (m) => m.ProfessionalsComponent
       );
     },
   },

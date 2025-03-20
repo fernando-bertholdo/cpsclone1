@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ListService } from '../services/list.service';
 import { Student } from '../model/student.type';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -25,6 +26,7 @@ import {MatTimepickerModule} from '@angular/material/timepicker';
     ReactiveFormsModule,
     MatCheckboxModule,
     MatTimepickerModule,
+    CommonModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './calendar-page.component.html',
@@ -55,10 +57,14 @@ export class CalendarPageComponent {
     'Pediatria', // Doenças infantis em geral
   ];
 
-  route = inject(ActivatedRoute);
-  private listService = inject(ListService);
-  id: string | null = null;
   student: Student | null = null;
+  id: string | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private listService: ListService,
+    private cdRef: ChangeDetectorRef // Injetando ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -66,8 +72,13 @@ export class CalendarPageComponent {
       if (this.id) {
         this.listService.getStudentById(this.id).subscribe((student) => {
           this.student = student;
+          this.cdRef.detectChanges(); // Força a atualização da UI
         });
       }
     });
+  }
+
+  trackNeed(index: number, item: string): string {
+    return item;
   }
 }

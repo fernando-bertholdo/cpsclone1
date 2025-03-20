@@ -1,11 +1,14 @@
-<header class="mb-6" aria-label="Cabeçalho do site">
-  <nav aria-label="Menu de navegação">
-    <img routerLink="/home" src="./assets/images/logo.svg" class="w-[200px] cursor-pointer ml-[80px]" alt="Logo do site" aria-label="Ir para a página inicial" />
-    <ul>
-      <mat-toolbar class="mat-toolbar">
-        <app-search-bar aria-label="Barra de pesquisa"></app-search-bar>
-      </mat-toolbar>
-    </ul>
-    <app-profile-avatar class="cursor-pointer mr-[80px] ml-[63px]" aria-label="Avatar do perfil"></app-profile-avatar>
+<header aria-label="Cabeçalho do site">
+  <nav aria-label="Menu de navegação" class="flex items-center justify-between px-[80px]">
+    <!-- Logo -->
+    <img routerLink="/home" src="./assets/images/logo.svg" class="w-[200px] cursor-pointer" alt="Logo do site" aria-label="Ir para a página inicial" />
+
+    <!-- Barra de pesquisa centralizada -->
+    <mat-toolbar class="mat-toolbar flex-grow flex justify-center">
+      <app-search-bar aria-label="Barra de pesquisa"></app-search-bar>
+    </mat-toolbar>
+
+    <!-- Avatar -->
+    <app-profile-avatar class="cursor-pointer" aria-label="Avatar do perfil"></app-profile-avatar>
   </nav>
 </header>

@@ -3,6 +3,11 @@ import { AlunoController } from './aluno.controller';
 import { AlunoService } from './aluno.service';
 
 describe('AlunoController (Unit)', () => {
+
+// Permite a edição de dados cadastrais não sensíveis.
+// Armazena observações e o histórico de alterações do aluno.
+// Relaciona-se com a classe Acompanhamento para gerenciar os atendimentos e tecnologias assistivas associadas ao aluno.
+
   let alunoController: AlunoController;
   let alunoService: AlunoService;
 
@@ -35,7 +40,7 @@ describe('AlunoController (Unit)', () => {
   });
 
   it('should return an array of students', async () => {
-    const result = await alunoController.getAllAlunos();
+    const result = await alunoController.findAll();
     
     expect(result).toHaveLength(2);
     expect(result).toEqual([

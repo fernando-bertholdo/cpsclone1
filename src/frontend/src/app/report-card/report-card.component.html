@@ -1,45 +1,154 @@
-<div class="grid-container font-sans" aria-label="Seção de Informações do Aluno">
+<div
+  class="grid-container font-sans"
+  aria-label="Seção de Informações do Aluno"
+>
   <div
-
-    class="container-report col-span-7 col-start-1 px-5 pb-5 w-full rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col" aria-label="Ficha do Aluno"
-
+    class="container-report col-span-7 col-start-1 px-5 pb-5 w-full rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col"
+    aria-label="Ficha do Aluno"
   >
     <h2 class="font-semibold text-center m-2 md:text-2xl">Ficha do Aluno</h2>
     <div class="overflow-auto w-full">
-      <p class="my-1">Nome: {{ student?.name }}</p>
-      <p class="my-1">Unidade: FATEC ZO/SP</p>
-      <p class="my-1">Matricula: {{ student?.academic_id }}</p>
-      <p class="my-1">Email: {{ student?.email }}</p>
-      <p class="my-1">Telefone: {{ student?.contact_phone }}</p>
-      <p class="my-1">Data de nascimento: {{ student?.date_of_birth }}</p>
-
-      <p>
-        <mat-checkbox [formControl]="needAssist" aria-label="Necessidade de Assistência">Tem Necessidade?</mat-checkbox>
+      <p class="my-1">
+        <span class="font-semibold">Nome:</span> {{ student?.name }}
       </p>
-      <mat-form-field class="w-1/2" aria-label="Campo de Necessidade">
-        <mat-label>Necessidade</mat-label>
-        <mat-select [disabled]="!needAssist.value">
-          <mat-option>Nenhuma</mat-option>
-          @for (need of needs; track need) {
-          <mat-option [value]="need">{{ need }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <p class="my-1">
+        <span class="font-semibold">Matrícula:</span> {{ student?.academic_id }}
+      </p>
+      <p class="my-1">
+        <span class="font-semibold">Email:</span> {{ student?.email }}
+      </p>
+      <p class="my-1">
+        <span class="font-semibold">Telefone:</span>
+        {{ student?.contact_phone }}
+      </p>
+      <p class="mt-1 mb-4">
+        <span class="font-semibold">Data de nascimento:</span>
+        {{ student?.date_of_birth }}
+      </p>
+
+      <h3 class="text-center font-sans font-semibold">Matrículas</h3>
+      <div
+        *ngFor="let enrollment of student?.enrollments"
+        class="border p-2 my-2"
+      >
+        <p class="my-1">
+          <span class="font-semibold">Curso:</span> {{ enrollment.course_name }}
+        </p>
+        <p class="my-1">
+          <span class="font-semibold">Tipo:</span> {{ enrollment.course_type }}
+        </p>
+        <p class="my-1">
+          <span class="font-semibold">Instituição:</span>
+          {{ enrollment.institution_name }}
+        </p>
+        <p class="my-1">
+          <span class="font-semibold">Turno:</span> {{ enrollment.shift }}
+        </p>
+        <p class="my-1">
+          <span class="font-semibold">Início:</span> {{ enrollment.start_date }}
+        </p>
+        <p class="my-1">
+          <span class="font-semibold">Término:</span> {{ enrollment.end_date }}
+        </p>
+        <p class="my-1">
+          <span class="font-semibold">Status:</span> {{ enrollment.status }}
+        </p>
+      </div>
 
       <p>
-        <mat-checkbox [formControl]="needEquipament" aria-label="Necessidade de Equipamento"
-          >Precisa de Equipamento?</mat-checkbox
+        <mat-checkbox
+          [formControl]="needAssist"
+          aria-label="Necessidade de Assistência"
         >
+          Tem Necessidade?
+        </mat-checkbox>
       </p>
-      <mat-form-field class="w-1/2" aria-label="Campo de Equipamento">
-        <mat-label>Equipamento</mat-label>
-        <mat-select [disabled]="!needEquipament.value">
-          <mat-option>Nenhuma</mat-option>
-          @for (equipament of equipaments; track equipament) {
-          <mat-option [value]="equipament">{{ equipament }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+
+      <div *ngIf="needAssist.value">
+        <div
+          *ngFor="let dropdown of needsDropdowns; let i = index"
+          class="flex items-center space-x-2"
+        >
+          <mat-form-field class="w-1/2" aria-label="Campo de Necessidade">
+            <mat-label>Necessidade</mat-label>
+            <mat-select>
+              <mat-option value="Nenhuma">Nenhuma</mat-option>
+              <mat-option *ngFor="let need of needs" [value]="need">{{
+                need
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="addNeedsDropdown()"
+            *ngIf="i === needsDropdowns.length - 1"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeNeedsDropdown(i)"
+            *ngIf="needsDropdowns.length > 1"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <p>
+        <mat-checkbox
+          [formControl]="needEquipament"
+          aria-label="Necessidade de Equipamento"
+        >
+          Precisa de Equipamento?
+        </mat-checkbox>
+      </p>
+
+      <div *ngIf="needEquipament.value">
+        <div
+          *ngFor="let dropdown of equipamentsDropdowns; let i = index"
+          class="flex items-center space-x-2"
+        >
+          <mat-form-field class="w-1/2" aria-label="Campo de Equipamento">
+            <mat-label>Equipamento</mat-label>
+            <mat-select>
+              <mat-option value="Nenhuma">Nenhuma</mat-option>
+              <mat-option
+                *ngFor="let equipament of equipaments"
+                [value]="equipament"
+              >
+                {{ equipament }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="addEquipamentsDropdown()"
+            *ngIf="i === equipamentsDropdowns.length - 1"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeEquipamentsDropdown(i)"
+            *ngIf="equipamentsDropdowns.length > 1"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4 mb-16">
+        <button class="w-1/2 border mt-2 border-[#bb2200] text-[#bb2200] mb-4 py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white flex items-center justify-center gap-2">Confirmar</button>
+      </div>
     </div>
     <div class="flex-grow"></div>
     <button
@@ -83,8 +192,10 @@
   </div>
 
   <div
-    class="container-report col-span-5 col-start-8 px-5 pb-5 w-full rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col" aria-label="Histórico do Aluno">
-    <h2 class="font-semibold text-center m-2 md:text-2xl" >Histórico</h2>
+    class="container-report col-span-5 col-start-8 px-5 pb-5 w-full rounded-md border-t-[3px] border-[#bb2200] shadow-[0px_30px_40px_-20px_rgba(0,0,0,0.25)] bg-white self-start flex flex-col"
+    aria-label="Histórico do Aluno"
+  >
+    <h2 class="font-semibold text-center m-2 md:text-2xl">Histórico</h2>
     <div class="flex-grow"></div>
     <button
       class="w-full border md:text-base border-[#bb2200] text-[#bb2200] py-2 px-4 rounded-md transition duration-300 hover:bg-[#bb2200] hover:text-white"
